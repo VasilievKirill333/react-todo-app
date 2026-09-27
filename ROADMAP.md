@@ -3,8 +3,8 @@
 Simple React todo app built while learning state management, component architecture, and project workflow.
 
 ## Stage 1: Core functionality (MVP)
-- [ x ] Scaffold project with Vite
-- [ ] Add basic todo state (add item)
+- [x] Scaffold project with Vite
+- [x] Add basic todo state (add item)
 - [ ] Add remove todo functionality
 - [ ] Add toggle done status
 - [ ] Split into TodoForm, TodoItem, TodoList components
