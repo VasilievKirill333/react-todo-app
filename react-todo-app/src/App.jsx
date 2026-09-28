@@ -7,9 +7,13 @@ function App() {
 
   function handleAdd() {
     if (inputValue.trim() === '') return;
-    setItems([...items, { id: Date.now(), text: inputValue, bought: false }]);
+    setItems([...items, { id: Date.now(), text: inputValue, done: false }]);
     setInputValue('');
   }
+
+  function handleRemove(id) {
+    setItems(items.filter(item => item.id !== id));
+}
 
   return (
     <div>
@@ -22,7 +26,7 @@ function App() {
 
       <ul>
         {items.map(item => (
-          <li key={item.id}>{item.text}</li>
+          <li key={item.id}>{item.text}<button onClick={() => handleRemove(item.id)}>×</button></li>
         ))}
       </ul>
     </div>
