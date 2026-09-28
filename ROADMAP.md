@@ -6,7 +6,7 @@ Simple React todo app built while learning state management, component architect
 - [x] Scaffold project with Vite
 - [x] Add basic todo state (add item)
 - [x] Add remove todo functionality
-- [ ] Add toggle done status
+- [x] Add toggle done status
 - [ ] Split into TodoForm, TodoItem, TodoList components
 
 ## Stage 2: Persistence & UX
