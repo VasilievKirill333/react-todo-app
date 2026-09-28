@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react';
 import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList';
+import FilterButtons from './components/FilterButtons';
 
 function App() {
   const [todos, setTodos] = useState(() => {
     const saved = localStorage.getItem('todos');
     return saved ? JSON.parse(saved) : [];
   });
+
   const [inputValue, setInputValue] = useState('');
+  const [filter, setFilter] = useState('all');
 
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos));
@@ -35,6 +38,12 @@ function App() {
     ));
   }
 
+  const visibleTodos = todos.filter(todo => {
+    if (filter === 'active') return !todo.done;
+    if (filter === 'done') return todo.done;
+    return true;
+  });
+
   return (
     <div>
       <h1>Todo App</h1>
@@ -43,7 +52,8 @@ function App() {
         onInputChange={setInputValue}
         onAdd={handleAdd}
       />
-      <TodoList todos={todos} onRemove={handleRemove} onToggle={handleToggle} onEdit={handleEdit} />
+      <FilterButtons filter={filter} onFilterChange={setFilter} />
+      <TodoList todos={visibleTodos} onRemove={handleRemove} onToggle={handleToggle} onEdit={handleEdit} />
     </div>
   );
 }
