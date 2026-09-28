@@ -11,8 +11,8 @@ Simple React todo app built while learning state management, component architect
 
 ## Stage 2: Persistence & UX
 - [x] Persist todos to localStorage
-- [ ] Add edit todo text (double-click to edit)
-- [ ] Add keyboard support (Enter to add, Esc to cancel edit)
+- [x] Add edit todo text (double-click to edit)
+- [x] Add keyboard support (Enter to add, Esc to cancel edit)
 - [ ] Prevent adding empty/whitespace todos (with feedback)
 
 ## Stage 3: Filters & derived state
