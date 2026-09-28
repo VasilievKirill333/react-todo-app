@@ -1,0 +1,48 @@
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.item:last-child {
+  border-bottom: none;
+}
+
+.text {
+  flex: 1;
+  cursor: pointer;
+  word-break: break-word;
+  user-select: none; /* двойной клик не выделяет текст */
+}
+
+.done {
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+.editInput {
+  flex: 1;
+  min-width: 0;
+  padding: 6px 8px;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.remove {
+  padding: 4px 8px;
+  border: none;
+  border-radius: var(--radius);
+  background: none;
+  color: var(--muted);
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.remove:hover {
+  background: var(--bg);
+  color: var(--danger);
+}

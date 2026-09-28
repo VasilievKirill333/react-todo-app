@@ -1,0 +1,12 @@
+.list {
+  list-style: none;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+/* пустой список не рисуем пустой рамкой */
+.list:empty {
+  display: none;
+}

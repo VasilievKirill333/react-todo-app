@@ -1,0 +1,23 @@
+.filters {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.filter {
+  padding: 6px 14px;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  background: none;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.filter:hover {
+  color: var(--text);
+}
+
+.active {
+  border-color: var(--accent);
+  color: var(--accent);
+}

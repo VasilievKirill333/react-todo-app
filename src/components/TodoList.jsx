@@ -1,8 +1,9 @@
 import TodoItem from './TodoItem';
+import styles from './TodoList.module.css'; 
 
 function TodoList({ todos, onRemove, onToggle, onEdit }) {
   return (
-    <ul>
+    <ul className='styles.list'>
       {todos.map(todo => (
         <TodoItem
         key={todo.id}

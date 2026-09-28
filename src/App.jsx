@@ -3,6 +3,8 @@ import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList';
 import FilterButtons from './components/FilterButtons';
 
+import styles from './App.module.css';
+
 function App() {
   const [todos, setTodos] = useState(() => {
     const saved = localStorage.getItem('todos');
@@ -36,8 +38,8 @@ function App() {
   }
 
   function handleEdit(id, newText) {
-    setTodos(todos.map(todo => 
-      todo.id === id ? {...todo, text: newText} : todo
+    setTodos(todos.map(todo =>
+      todo.id === id ? { ...todo, text: newText } : todo
     ));
   }
 
@@ -48,23 +50,32 @@ function App() {
   });
 
   function handleClearCompleted() {
-  setTodos(todos.filter(todo => !todo.done));
-}
+    setTodos(todos.filter(todo => !todo.done));
+  }
 
   return (
-    <div>
+    <div className={styles.app}>
       <h1>Todo App</h1>
-      <p>Completed: {doneCount} of {totalCount}</p>
       <TodoForm
         inputValue={inputValue}
         onInputChange={setInputValue}
         onAdd={handleAdd}
       />
       <FilterButtons filter={filter} onFilterChange={setFilter} />
-      {doneCount > 0 && (
-        <button onClick={handleClearCompleted}>Clear completed</button>
-      )}
-      <TodoList todos={visibleTodos} onRemove={handleRemove} onToggle={handleToggle} onEdit={handleEdit} />
+      <TodoList
+        todos={visibleTodos}
+        onRemove={handleRemove}
+        onToggle={handleToggle}
+        onEdit={handleEdit}
+      />
+      <div className={styles.footer}>
+        <span>Completed: {doneCount} of {totalCount}</span>
+        {doneCount > 0 && (
+          <button className={styles.clear} onClick={handleClearCompleted}>
+            Clear completed
+          </button>
+        )}
+      </div>
     </div>
   );
 }

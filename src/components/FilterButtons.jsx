@@ -1,9 +1,27 @@
+import styles from './FilterButtons.module.css';
+
+const FILTERS = [
+  { value: 'all', label: 'All' },
+  { value: 'active', label: 'Active' },
+  { value: 'done', label: 'Done' },
+];
+
 function FilterButtons({ filter, onFilterChange }) {
   return (
-    <div>
-      <button onClick={() => onFilterChange('all')}>All</button>
-      <button onClick={() => onFilterChange('active')}>Active</button>
-      <button onClick={() => onFilterChange('done')}>Done</button>
+    <div className={styles.filters}>
+      {FILTERS.map(({ value, label }) => (
+        <button
+          key={value}
+          className={
+            filter === value
+              ? `${styles.filter} ${styles.active}`
+              : styles.filter
+          }
+          onClick={() => onFilterChange(value)}
+        >
+          {label}
+        </button>
+      ))}
     </div>
   );
 }

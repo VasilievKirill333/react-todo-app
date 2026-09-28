@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import styles from './TodoItem.module.css';
 
 function TodoItem({ todo, onRemove, onToggle, onEdit }) {
     const [isEditing, setIsEditing] = useState(false);
@@ -27,9 +28,10 @@ function TodoItem({ todo, onRemove, onToggle, onEdit }) {
 }
 
     return (
-    <li>
+    <li className={styles.item}>
         {isEditing ? (
             <input
+            className={styles.editInput}
             type='text'
             value={editText}
             onChange={(e)=> setEditText(e.target.value)}
@@ -39,13 +41,17 @@ function TodoItem({ todo, onRemove, onToggle, onEdit }) {
             />
         ) : (
       <span
+        className={todo.done ? `${styles.text} ${styles.done}` : styles.text}
         onDoubleClick={()=>setIsEditing(true)}
         onClick={() => onToggle(todo.id)}
-        style={{ textDecoration: todo.done ? 'line-through' : 'none' }}
       >
         {todo.text}
       </span>)}
-      <button onClick={() => onRemove(todo.id)}>×</button>
+      <button
+        className={styles.remove}
+        onClick={() => onRemove(todo.id)}>
+            ×
+        </button>
     </li>
   );
 }
