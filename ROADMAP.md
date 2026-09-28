@@ -21,7 +21,7 @@ Simple React todo app built while learning state management, component architect
 - [x] Add "clear completed" button
 
 ## Stage 4: Visual polish
-- [ ] Add basic CSS styling
+- [x] Add basic CSS styling
 - [ ] Add dark/light theme toggle
 - [ ] Add animations for add/remove
 
