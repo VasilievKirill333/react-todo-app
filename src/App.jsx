@@ -29,6 +29,12 @@ function App() {
     ));
   }
 
+  function handleEdit(id, newText) {
+    setTodos(todos.map(todo => 
+      todo.id === id ? {...todo, text: newText} : todo
+    ));
+  }
+
   return (
     <div>
       <h1>Todo App</h1>
@@ -37,7 +43,7 @@ function App() {
         onInputChange={setInputValue}
         onAdd={handleAdd}
       />
-      <TodoList todos={todos} onRemove={handleRemove} onToggle={handleToggle} />
+      <TodoList todos={todos} onRemove={handleRemove} onToggle={handleToggle} onEdit={handleEdit} />
     </div>
   );
 }
