@@ -47,6 +47,10 @@ function App() {
     return true;
   });
 
+  function handleClearCompleted() {
+  setTodos(todos.filter(todo => !todo.done));
+}
+
   return (
     <div>
       <h1>Todo App</h1>
@@ -57,6 +61,9 @@ function App() {
         onAdd={handleAdd}
       />
       <FilterButtons filter={filter} onFilterChange={setFilter} />
+      {doneCount > 0 && (
+        <button onClick={handleClearCompleted}>Clear completed</button>
+      )}
       <TodoList todos={visibleTodos} onRemove={handleRemove} onToggle={handleToggle} onEdit={handleEdit} />
     </div>
   );
