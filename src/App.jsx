@@ -1,25 +1,34 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList';
 
 function App() {
-  const [items, setItems] = useState([]);
+  const [todos, setTodos] = useState(() => {
+    const saved = localStorage.getItem('todos');
+    return saved ? JSON.parse(saved) : [];
+  });
   const [inputValue, setInputValue] = useState('');
+
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos]);
 
   function handleAdd() {
     if (inputValue.trim() === '') return;
-    setItems([...items, { id: Date.now(), text: inputValue, done: false }]);
+    setTodos([...todos, { id: Date.now(), text: inputValue, done: false }]);
     setInputValue('');
   }
 
   function handleRemove(id) {
-    setItems(items.filter(item => item.id !== id));
-}
+    setTodos(todos.filter(todo => todo.id !== id));
+  }
 
   function handleToggle(id) {
-    setItems(items.map(item => item.id === id ? {...item, done: !item.done} : item));
+    setTodos(todos.map(todo =>
+      todo.id === id ? { ...todo, done: !todo.done } : todo
+    ));
   }
-  
+
   return (
     <div>
       <h1>Todo App</h1>
@@ -28,8 +37,7 @@ function App() {
         onInputChange={setInputValue}
         onAdd={handleAdd}
       />
-
-      <TodoList items={items} onRemove={handleRemove} onToggle={handleToggle} />
+      <TodoList todos={todos} onRemove={handleRemove} onToggle={handleToggle} />
     </div>
   );
 }

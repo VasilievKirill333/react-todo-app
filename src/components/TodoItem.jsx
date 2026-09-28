@@ -1,12 +1,15 @@
-import React from 'react'
-
-function TodoItem({ item, onRemove, onToggle }) {
+function TodoItem({ todo, onRemove, onToggle }) {
   return (
-        <li>
-            <span onClick={()=>onToggle(item.id)} style={{ textDecoration: item.done ? 'line-through' : 'none' }}>{item.text}</span>
-            <button onClick={() => onRemove(item.id)}>×</button>
-        </li>
-  )
+    <li>
+      <span
+        onClick={() => onToggle(todo.id)}
+        style={{ textDecoration: todo.done ? 'line-through' : 'none' }}
+      >
+        {todo.text}
+      </span>
+      <button onClick={() => onRemove(todo.id)}>×</button>
+    </li>
+  );
 }
 
-export default TodoItem
+export default TodoItem;
