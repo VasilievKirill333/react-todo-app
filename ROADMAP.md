@@ -18,7 +18,7 @@ Simple React todo app built while learning state management, component architect
 ## Stage 3: Filters & derived state
 - [x] Add filter by status (all / active / completed)
 - [x] Add items counter (X of Y completed)
-- [ ] Add "clear completed" button
+- [x] Add "clear completed" button
 
 ## Stage 4: Visual polish
 - [ ] Add basic CSS styling
