@@ -7,7 +7,7 @@ Simple React todo app built while learning state management, component architect
 - [x] Add basic todo state (add item)
 - [x] Add remove todo functionality
 - [x] Add toggle done status
-- [ ] Split into TodoForm, TodoItem, TodoList components
+- [x] Split into TodoForm, TodoItem, TodoList components
 
 ## Stage 2: Persistence & UX
 - [ ] Persist todos to localStorage
