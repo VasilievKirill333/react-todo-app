@@ -12,6 +12,9 @@ function App() {
   const [inputValue, setInputValue] = useState('');
   const [filter, setFilter] = useState('all');
 
+  const totalCount = todos.length;
+  const doneCount = todos.filter(todo => todo.done).length;
+
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos));
   }, [todos]);
@@ -47,6 +50,7 @@ function App() {
   return (
     <div>
       <h1>Todo App</h1>
+      <p>Completed: {doneCount} of {totalCount}</p>
       <TodoForm
         inputValue={inputValue}
         onInputChange={setInputValue}
