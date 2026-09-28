@@ -16,7 +16,7 @@ Simple React todo app built while learning state management, component architect
 - [x] Prevent adding empty/whitespace todos (with feedback)
 
 ## Stage 3: Filters & derived state
-- [ ] Add filter by status (all / active / completed)
+- [x] Add filter by status (all / active / completed)
 - [ ] Add items counter (X of Y completed)
 - [ ] Add "clear completed" button
 
