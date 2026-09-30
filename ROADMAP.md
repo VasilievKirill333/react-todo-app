@@ -23,7 +23,7 @@ Simple React todo app built while learning state management, component architect
 ## Stage 4: Visual polish
 - [x] Add basic CSS styling
 - [x] Add dark/light theme toggle
-- [ ] Add animations for add/remove
+- [x] Add animations for add/remove
 
 ## Stage 5: Architecture level-up
 - [ ] Extract todo logic into a `useTodos` custom hook
