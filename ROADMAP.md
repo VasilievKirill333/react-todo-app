@@ -26,7 +26,7 @@ Simple React todo app built while learning state management, component architect
 - [x] Add animations for add/remove
 
 ## Stage 5: Architecture level-up
-- [ ] Extract todo logic into a `useTodos` custom hook
+- [x] Extract todo logic into a `useTodos` custom hook
 - [ ] Add categories/tags for todos
 - [ ] Add drag-and-drop reordering
 - [ ] Add unit tests for `useTodos` hook (Vitest)
