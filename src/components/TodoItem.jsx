@@ -4,7 +4,8 @@ import styles from './TodoItem.module.css';
 function TodoItem({ todo, onRemove, onToggle, onEdit }) {
     const [isEditing, setIsEditing] = useState(false);
     const [editText, setEditText] = useState(todo.text);
-  
+    const [isRemoving, setIsRemoving] = useState(false);
+
     function handleSave() {
         if (editText.trim() === '') {
             setEditText(todo.text); // пусто → возвращаем старый текст
@@ -27,8 +28,15 @@ function TodoItem({ todo, onRemove, onToggle, onEdit }) {
     }
 }
 
+    function handleRemoveClick() {
+        setIsRemoving(true);
+        setTimeout(() => {
+            onRemove(todo.id);
+        }, 200);
+    }
+
     return (
-    <li className={styles.item}>
+    <li className={isRemoving ? `${styles.item} ${styles.removing}` : styles.item}>
         {isEditing ? (
             <input
             className={styles.editInput}
@@ -49,7 +57,7 @@ function TodoItem({ todo, onRemove, onToggle, onEdit }) {
       </span>)}
       <button
         className={styles.remove}
-        onClick={() => onRemove(todo.id)}>
+        onClick={handleRemoveClick}>
             ×
         </button>
     </li>
