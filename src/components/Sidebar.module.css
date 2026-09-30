@@ -9,6 +9,13 @@
   transition: width 0.2s ease;
 }
 
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
 .logo {
   padding: 8px 12px 16px;
   font-family: var(--font-display);

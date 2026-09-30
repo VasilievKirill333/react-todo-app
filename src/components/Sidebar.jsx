@@ -7,7 +7,7 @@ const NAV_ITEMS = [
   { id: 'settings', label: 'Settings', icon: '⚙' },
 ];
 
-function Sidebar({ active, onSelect }) {
+function Sidebar({ active, onSelect, theme, onToggleTheme }) {
   const [isOpen, setIsOpen] = useState(true);
 
   return (
@@ -32,6 +32,15 @@ function Sidebar({ active, onSelect }) {
           </button>
         ))}
       </nav>
+
+          <button
+        className={styles.item}
+        onClick={onToggleTheme}
+        title={theme === 'light' ? 'Dark mode' : 'Light mode'}
+      >
+        <span className={styles.icon}>{theme === 'light' ? '☾' : '☀'}</span>
+        {isOpen && (theme === 'light' ? 'Dark mode' : 'Light mode')}
+      </button>
     </aside>
   );
 }

@@ -56,9 +56,29 @@ function App() {
     setTodos(todos.filter(todo => !todo.done));
   }
 
+  const [theme, setTheme] = useState(() => {
+  const saved = localStorage.getItem('theme');
+  if (saved) return saved;
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+});
+
+useEffect(() => {
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('theme', theme);
+}, [theme]);
+
+function toggleTheme() {
+  setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
+}
+
   return (
     <div className={styles.layout}>
-      <Sidebar active={activeSection} onSelect={setActiveSection} />
+      <Sidebar
+          active={activeSection}
+          onSelect={setActiveSection}
+          theme={theme}
+          onToggleTheme={toggleTheme}
+      />
         <main className={styles.content}>
           <TodoForm
             inputValue={inputValue}
