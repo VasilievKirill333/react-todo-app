@@ -4,94 +4,58 @@ import TodoList from './components/TodoList';
 import FilterButtons from './components/FilterButtons';
 import Sidebar from './components/Sidebar';
 
+import useTodos from './hooks/useTodos';
+import useTheme from './hooks/useTheme';
+
 import styles from './App.module.css';
 
 function App() {
-  const [todos, setTodos] = useState(() => {
-    const saved = localStorage.getItem('todos');
-    return saved ? JSON.parse(saved) : [];
-  });
+  const {
+    visibleTodos,
+    filter,
+    setFilter,
+    totalCount,
+    doneCount,
+    handleAdd,
+    handleRemove,
+    handleToggle,
+    handleEdit,
+    handleClearCompleted,
+  } = useTodos();
 
   const [inputValue, setInputValue] = useState('');
-  const [filter, setFilter] = useState('all');
 
-  const totalCount = todos.length;
-  const doneCount = todos.filter(todo => todo.done).length;
-
-  const [activeSection, setActiveSection] = useState('todo');
-
-  useEffect(() => {
-    localStorage.setItem('todos', JSON.stringify(todos));
-  }, [todos]);
-
-  function handleAdd() {
+  function handleAddClick() {
     if (inputValue.trim() === '') return;
-    setTodos([...todos, { id: Date.now(), text: inputValue, done: false }]);
+    handleAdd(inputValue);
     setInputValue('');
   }
 
-  function handleRemove(id) {
-    setTodos(todos.filter(todo => todo.id !== id));
-  }
+  const [activeSection, setActiveSection] = useState('todo');
 
-  function handleToggle(id) {
-    setTodos(todos.map(todo =>
-      todo.id === id ? { ...todo, done: !todo.done } : todo
-    ));
-  }
-
-  function handleEdit(id, newText) {
-    setTodos(todos.map(todo =>
-      todo.id === id ? { ...todo, text: newText } : todo
-    ));
-  }
-
-  const visibleTodos = todos.filter(todo => {
-    if (filter === 'active') return !todo.done;
-    if (filter === 'done') return todo.done;
-    return true;
-  });
-
-  function handleClearCompleted() {
-    setTodos(todos.filter(todo => !todo.done));
-  }
-
-  const [theme, setTheme] = useState(() => {
-  const saved = localStorage.getItem('theme');
-  if (saved) return saved;
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-});
-
-useEffect(() => {
-  document.documentElement.setAttribute('data-theme', theme);
-  localStorage.setItem('theme', theme);
-}, [theme]);
-
-function toggleTheme() {
-  setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
-}
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <div className={styles.layout}>
       <Sidebar
-          active={activeSection}
-          onSelect={setActiveSection}
-          theme={theme}
-          onToggleTheme={toggleTheme}
+        active={activeSection}
+        onSelect={setActiveSection}
+        theme={theme}
+        onToggleTheme={toggleTheme}
       />
-        <main className={styles.content}>
-          <TodoForm
-            inputValue={inputValue}
-            onInputChange={setInputValue}
-            onAdd={handleAdd}
-          />
-          <FilterButtons filter={filter} onFilterChange={setFilter} />
-          <TodoList
-            todos={visibleTodos}
-            onRemove={handleRemove}
-            onToggle={handleToggle}
-            onEdit={handleEdit}
-          />
+      <main className={styles.content}>
+        <TodoForm
+          inputValue={inputValue}
+          onInputChange={setInputValue}
+          onAdd={handleAddClick}
+        />
+        <FilterButtons filter={filter} onFilterChange={setFilter} />
+        <TodoList
+          todos={visibleTodos}
+          onRemove={handleRemove}
+          onToggle={handleToggle}
+          onEdit={handleEdit}
+        />
         <div className={styles.footer}>
           <span>Completed: {doneCount} of {totalCount}</span>
           {doneCount > 0 && (
