@@ -31,7 +31,7 @@ React todo app, evolving from a learning project into a fullstack application (R
 - [x] Extract theme logic into a `useTheme` custom hook
 
 ## Stage 6: Backend basics
-- [ ] Set up Express server (project structure, basic routing)
+- [x] Set up Express server (project structure, basic routing)
 - [ ] Set up PostgreSQL database and connection
 - [ ] Design `todos` table schema
 - [ ] Build CRUD REST API for todos (GET/POST/PATCH/DELETE)
