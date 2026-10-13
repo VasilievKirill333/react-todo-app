@@ -1,3 +1,7 @@
+const fs = require('fs');
+const path = require('path');
+const YAML = require('yaml');
+const swaggerUi = require('swagger-ui-express');
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
@@ -12,6 +16,9 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api/todos', todosRouter); 
+const openapiPath = path.join(__dirname, '..', 'docs', 'openapi.yaml');
+const openapiDocument = YAML.parse(fs.readFileSync(openapiPath, 'utf8'));
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(openapiDocument));
 
 app.get('/', (req, res) => {
   res.json({ message: 'Todo API is running' });

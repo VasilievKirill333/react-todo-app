@@ -1,0 +1,218 @@
+openapi: 3.0.3
+
+info:
+  title: Todo API
+  version: 1.0.0
+  description: REST API for the todo app (Express + PostgreSQL).
+
+servers:
+  - url: http://localhost:3001
+    description: Local development
+
+tags:
+  - name: Health
+    description: Server and database health checks
+  - name: Todos
+    description: Operations on todos
+
+paths:
+  /:
+    get:
+      tags: [Health]
+      summary: Check that the server is running
+      responses:
+        '200':
+          description: Server is running
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Todo API is running
+
+  /db-check:
+    get:
+      tags: [Health]
+      summary: Check the database connection
+      responses:
+        '200':
+          description: Database is reachable
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  dbTime:
+                    type: string
+                    format: date-time
+                    example: '2026-10-13T07:03:04.511Z'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /api/todos:
+    get:
+      tags: [Todos]
+      summary: Get all todos
+      description: Todos are sorted by creation date (oldest first).
+      responses:
+        '200':
+          description: List of todos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Todo'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+    post:
+      tags: [Todos]
+      summary: Create a todo
+      description: Leading and trailing whitespace in `text` is trimmed.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewTodo'
+      responses:
+        '201':
+          description: Todo created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todo'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /api/todos/{id}:
+    parameters:
+      - $ref: '#/components/parameters/TodoId'
+
+    patch:
+      tags: [Todos]
+      summary: Update a todo
+      description: Send `text`, `done`, or both. At least one field is required.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTodo'
+      responses:
+        '200':
+          description: Todo updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todo'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+    delete:
+      tags: [Todos]
+      summary: Delete a todo
+      responses:
+        '204':
+          description: Todo deleted (empty response body)
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+components:
+  schemas:
+    Todo:
+      type: object
+      required: [id, text, done, created_at]
+      properties:
+        id:
+          type: integer
+          example: 3
+        text:
+          type: string
+          example: Buy bread
+        done:
+          type: boolean
+          example: false
+        created_at:
+          type: string
+          format: date-time
+          example: '2026-10-13T07:03:04.511Z'
+
+    NewTodo:
+      type: object
+      required: [text]
+      properties:
+        text:
+          type: string
+          minLength: 1
+          example: Buy bread
+
+    UpdateTodo:
+      type: object
+      minProperties: 1
+      properties:
+        text:
+          type: string
+          minLength: 1
+          example: Buy milk
+        done:
+          type: boolean
+          example: true
+
+    Error:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: string
+          example: Todo not found
+
+  parameters:
+    TodoId:
+      name: id
+      in: path
+      required: true
+      description: Todo ID (positive integer)
+      schema:
+        type: integer
+        minimum: 1
+        example: 3
+
+  responses:
+    BadRequest:
+      description: Invalid request data
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: Text must be a non-empty string
+    NotFound:
+      description: Todo not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: Todo not found
+    ServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: Failed to fetch todos
