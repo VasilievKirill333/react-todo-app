@@ -35,7 +35,7 @@ React todo app, evolving from a learning project into a fullstack application (R
 - [x] Set up PostgreSQL database and connection
 - [x] Design `todos` table schema
 - [x] Build CRUD REST API for todos (GET/POST/PATCH/DELETE)
-- [ ] Add Swagger/API docs
+- [x] Add Swagger/API docs
 - [ ] Add Dockerfile + docker-compose for backend + PostgreSQL
 
 ## Stage 7: Authentication
