@@ -33,8 +33,8 @@ React todo app, evolving from a learning project into a fullstack application (R
 ## Stage 6: Backend basics
 - [x] Set up Express server (project structure, basic routing)
 - [x] Set up PostgreSQL database and connection
-- [ ] Design `todos` table schema
-- [ ] Build CRUD REST API for todos (GET/POST/PATCH/DELETE)
+- [x] Design `todos` table schema
+- [x] Build CRUD REST API for todos (GET/POST/PATCH/DELETE)
 - [ ] Add Swagger/API docs
 - [ ] Add Dockerfile + docker-compose for backend + PostgreSQL
 
