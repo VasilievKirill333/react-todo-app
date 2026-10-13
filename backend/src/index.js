@@ -6,8 +6,12 @@ const pool = require('./db');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+const todosRouter = require('./routes/todos');
+
 app.use(cors());
 app.use(express.json());
+
+app.use('/api/todos', todosRouter); 
 
 app.get('/', (req, res) => {
   res.json({ message: 'Todo API is running' });
