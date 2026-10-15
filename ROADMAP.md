@@ -39,7 +39,7 @@ React todo app, evolving from a learning project into a fullstack application (R
 - [x] Add Dockerfile + docker-compose for backend + PostgreSQL
 
 ## Stage 7: Authentication
-- [ ] Design `users` table schema
+- [x] Design `users` table schema
 - [ ] Build registration endpoint (hash password with bcrypt)
 - [ ] Build login endpoint (issue JWT)
 - [ ] Add auth middleware to protect todo routes
