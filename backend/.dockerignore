@@ -4,4 +4,4 @@ npm-debug.log*
 .git
 Dockerfile
 .dockerignore
-docker-compose.yml
+docker-compose.yaml
